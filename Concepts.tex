@@ -1488,14 +1488,13 @@ as well as design time.
 \section{Case study\label{sec:case-study}}
 
 In~\S\ref{sec:Motivating Example} we introduced the motivating example for
-this article, a simple buck converter, in order to discuss the monolithic
+this article, a simple buck converter, and discussed the challenges of monolithic
 approach to specifying asynchronous circuits. We have also introduced
 concepts in~\S\ref{sec:Concepts}, and with examples explained how they can
 be used to design simple circuits, and how these can be translated to
-provide us with an STG specification for use with standard tools.
-
-Now we can use this information with the buck converter case study to detail the design flow for producing a
-specification for a buck converter. This design flow is implemented in \noun{Workcraft}.
+provide us with an STG specification for use with standard tools. 
+Now we detail a design flow supported by \noun{Workcraft} for producing formal STG
+specifications for more complex circuits and use the buck converter as a case study.
 
 \begin{figure*}[t]
 \begin{centering}
@@ -1507,17 +1506,14 @@ specification for a buck converter. This design flow is implemented in \noun{Wor
 
 \subsection{Formal specification using concepts}
 
-From the informal buck specification and our knowledge of the signals,
-we can determine three separate operating conditions that occur in
-the analogue circuit and the controller needs to react to. All of
-these can be produced from concepts separately and composed to produce
-scenario STGs, before combining these to produce a single full circuit
-STG.
+Informal buck specification defines three operating modes of the analogue circuit
+that require distinctive control scenarios. Requirements for each operating mode
+can be captured with a separate list of concepts, which are translated into scenario
+STGs. These can be subsequently combined to produce a single full circuit STG.
 
 During this process, it is useful to find any operations which occur
-between two or more operational modes, as these can then be reused
-in other scenarios. If this is defined in one list of concepts, it
-can then be referenced in concept lists for other scenarios by name, assuming these scenarios will be built as part of the same workspace.
+between two or more operational modes, as these can then be reused -- a concept defined
+in one list of concepts can be referenced from other scenarios by name.
 
 \subsubsection{ZC~absent scenario}
 
@@ -1582,7 +1578,7 @@ also describe constraints provided by the environment that we are
 aware of, such as $oc$ and $uv$ never signalling at the same time, and ensuring that
 the acknowledge signal of transistors must be low before the other transistor can be switched on.
 Environment behaviour is included in the concepts so that it is captured in the resulting STG for testing and simulation purposes.
-We also include an \textsf{interface} concept in order to include the
+We also include an \textsf{interface} concept in order to specify the
 types of the signals involved in the scenario.
 
 Within the \textsf{initialState} concepts, we use the \textsf{initialise0} concept, which applies the initial state of 0 to all listed signals.
